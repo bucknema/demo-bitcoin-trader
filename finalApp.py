@@ -22,8 +22,8 @@ from google.appengine.ext.webapp import template
 ########################################################################################################
 ########################################################################################################
 ## -- OAuth 
-CLIENTID = "901239647181-c97v8spk2qdbk1u9g1v8lkrpn1gl284n.apps.googleusercontent.com"    #Set the variables to use throughout. Client ID and secret are provided when setting up credentials
-CLIENTSECRET = "NNFD2omxgjsn5KEoGkedTR26"
+CLIENTID = ""    #Set the variables to use throughout. Client ID and secret are provided when setting up credentials
+CLIENTSECRET = ""
 AUTHurl = "https://accounts.google.com/o/oauth2/v2/auth"
 CALLBACKurl = "http://localhost:8080/callback"    
 ########################################################################################################
