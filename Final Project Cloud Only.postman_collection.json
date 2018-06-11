@@ -1,0 +1,1133 @@
+{
+	"info": {
+		"_postman_id": "54cf8aaa-0e74-4455-b797-73fe9a900cf1",
+		"name": "Final Project Cloud Only",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create person1 w/ user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd2b2d53-f226-4f45-8a4d-beb111f05802",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"person1ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"bucknema\",\"email\":\"bucknema@oregonstate.edu\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create person2 w/ user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b89fef4d-8eff-48ea-b2d9-0baf2d8ddb3c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"person2ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"markb\",\"email\":\"markb@oregonstate.edu\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return person1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Returned user data\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return both persons",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54cb5665-e78c-4db5-80de-8a8bf2c34c27",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Returned users associated person entities\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/people/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replace person data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Replaced User\"] = responseBody.has(\"successfully\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"bitcoinFan1990\", \"email\":\"bitcoinFan1990@gmail.com\",\"btc_value\": 4.5}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm person data changed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28809a79-d964-43fe-9159-2338dceded9e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Confirm user was replaced\"] = responseBody.has(\"bitcoinFan\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete person2 w/ user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85aec93e-7f9c-4dc9-b0a1-e63e5e46be06",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Delete request\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person2ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person2ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm person2 deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "959f0218-35e3-4b1a-932c-2da136004466",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Person is deleted\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person2ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person2ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create person3 w/ user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8311ef6-5409-4ef4-904d-1557dcfad34b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"person3ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"marks-alt\",\"email\": \"marks-alt1990@yahoo.com\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user2 cannot access user1 data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"User2 cannot access user1 data\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person3ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person3ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create person4 with user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8df0912-eeff-4288-b29a-656680ce2418",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"person4ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"halfinney\", \"email\":\"\", \"usd_value\": 9999999.99}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user2 can access person4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Confirm user2 can access data\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person4ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person4ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user1 cannot access user2 data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"User1 cannot access user2 data\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person4ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person4ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create trade1 with user1+person1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a20f0f1-0993-44aa-bc93-59c4194ce6b5",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"trade1ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"bucknema\", \"amount\": 2.512345}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create trade2 with user1+person1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e5f953c-4dee-41ee-b0f1-c5bbac6a95de",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"trade2ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"bucknema\", \"amount\": 0.00082}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user1 can see trade1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5605da72-2f37-47df-b1d0-bff48e637bf3",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Returned trade data\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{trade1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{trade1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return all person1 trades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "535c98d2-10b3-458e-9b1c-b1e267e75012",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Returned trade data\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/trades/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replace trade1 amount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bff96ed-fc07-4165-9761-acf5cfb06f03",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Replaced trade amount\"] = responseBody.has(\"Trade data successfully updated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"amount\": 250.01}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{trade1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{trade1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm trade1 amount updated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4236e627-1873-423e-a0b1-d9d780f79613",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var amt = res.amount;",
+							"tests[\"Confirm trade amount was replaced\"] = amt === 250.01;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{trade1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{trade1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user2 can't access user1 trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6f50137-5d24-4f87-b409-7ffef3873429",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"User2 cannot access user1 trade\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{trade1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{trade1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete trade1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{trade1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{trade1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm trade1 deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28dc1011-aa7b-4991-afe3-f40cda7e1cb8",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Trade has been deleted\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{trade1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{trade1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new person w/ user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d19a3ca-d3bd-4d44-9cec-78bb76f482eb",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"person1ID\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"satoshi-nakamoto\",\"email\": \"satoshinakamoto@yahoo.com\", \"btc_value\": 1000000.9999}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user2 cannot edit user1s person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"User2 cannot overwrite user1 data\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"newname\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/people/{{person1ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"{{person1ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Trade w/ user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96f7b367-7709-4dd2-aa1a-6f72b8febbb4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"var res = JSON.parse(responseBody);",
+							"var id = res.id;",
+							"console.log(id);",
+							"",
+							"postman.setEnvironmentVariable(\"newtrade\", id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user1}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"satoshi-nakamoto\", \"amount\": 0.45, \"buying\":false}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm user2 cannot edit user1s trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "759995c0-1435-4330-8588-a7f2e4bb452b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"User2 cannot overwrite user1 trade\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_header",
+						"value": "{{user2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"billyjoe\", \"amount\":90.0, \"buying\":true}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/trades/{{newtrade}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trades",
+						"{{newtrade}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "91f6d307-4ae9-4f06-b879-88ca3956320e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "52ae5616-6e0c-433e-9128-283c859dd6b9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "67913d84-09d2-470d-8d5d-911507e19913",
+			"key": "user1",
+			"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdkZGY1NGQzMDMyZDFmMGQ0OGMzNjE4ODkyY2E3NGMxYWMzMGFkNzcifQ.eyJhenAiOiI5MDEyMzk2NDcxODEtYzk3djhzcGsycWRiazF1OWcxdjhsa3JwbjFnbDI4NG4uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI5MDEyMzk2NDcxODEtYzk3djhzcGsycWRiazF1OWcxdjhsa3JwbjFnbDI4NG4uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDc5MzY3MDE5MzE1MTIwNjE5OTMiLCJoZCI6Im9yZWdvbnN0YXRlLmVkdSIsImVtYWlsIjoiYnVja25lbWFAb3JlZ29uc3RhdGUuZWR1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJZQmV0clMybDBfMmNDVmNvRlJsbmZBIiwiZXhwIjoxNTI4NjgyNDYzLCJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJpYXQiOjE1Mjg2Nzg4NjN9.bfJDCXStLsGkIV7pKSiv2JU9hRQrrodq9_O-VcS4rP3yWTl3FOp37oLIRXjOyz1imeuiLss1qZjV10nB3nxo1ZE4k2yafqzQ17Y0K6gRXhGJ8H2jYLMJHTMsteE8G_jNvn8jsfyzTFxvAtKiPRp5aiG3yHSzwcsi-uXRD0OK-sKRVs5heJhbjpStlVYLBaitUrSSFYZ9dtlghpvc3kOtAO4eBeDx7QbGghR7ANu5UxKtDnq7l_cr4HpBEOfx941pF84PFomg9XIbLroNBnqZ69GW9yNvINDBc7w_IGpsopD65Af5OQHiaCpjlE17lWFZTSxrgJrBqs_pd_nGqiz5eg",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "6ad8cf3d-29f9-4938-aa17-908a23f7bb5d",
+			"key": "user2",
+			"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdkZGY1NGQzMDMyZDFmMGQ0OGMzNjE4ODkyY2E3NGMxYWMzMGFkNzcifQ.eyJhenAiOiI5MDEyMzk2NDcxODEtYzk3djhzcGsycWRiazF1OWcxdjhsa3JwbjFnbDI4NG4uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI5MDEyMzk2NDcxODEtYzk3djhzcGsycWRiazF1OWcxdjhsa3JwbjFnbDI4NG4uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTM5ODExNjI0MzM0ODk2NjIzNzciLCJlbWFpbCI6Im1hcmtiLmNka0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImM1WDlzSkVsd21BSDdDOFljbElDWGciLCJleHAiOjE1Mjg2ODI1MjUsImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbSIsImlhdCI6MTUyODY3ODkyNX0.awlX4EtdDZhBTYw-L110LFsry3dXLgwGdyBtDu-VvWeYe9yr9tXycnaruNwebSliYJ9FPFIqXf_TXzuVux63uKsAP3zKO3CvLOwwyPpKNGc64YOFsWAescaxEoQZxMyV-_FBVs_FTMuZpuM_MkVrLaXLEgN2XjNSmdlNd76qf1HxuFXGCT0yOmTRDvIvuBiTeTxYgD5VY7GWg3E1MCMEkr8F2lzkkZhViefCGaSOY9V-eK8ZWjYjjkkZAKVLRCjFHy40U_UnsHTIWBmyV7gvETX6dRW-pHshLmRc7UPEK3InT5hry0OClGtGblEz4jk5CimCwAK9CZhBVX_W2y3V4g",
+			"type": "string",
+			"description": ""
+		}
+	]
+}
