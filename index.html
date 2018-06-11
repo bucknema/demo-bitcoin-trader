@@ -1,0 +1,51 @@
+<html lang="en">
+    <head>
+        <title>Final Cloud Project - Bitcoin tracker</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    </head>
+
+ <body>
+
+<div class="page-header">
+  <center><h5>Mark Buckner - Oregon State University Cloud and Mobile Dev Spring 2018</h5></center>
+</div>
+
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="centered-text display-3">Final Cloud Project - Bitcoin Demo Trader REST API</h1>
+                <br>
+                <div class="text-center">
+                    <div class="btn-group">
+                        <a href="{{ signin }}" class="btn btn-primary btn-lg" style="background-color: #FF8C00">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="container">
+    	<div class="jumbotron">
+    	<h2> Current Bitcoin rate: <b> $ {{ btcprice }} </b></h2>
+
+    	<br>
+    	<p><i> {{ disclaimer }} </i></p>
+    	<p> See <a href="https://github.com/bucknema/demo-bitcoin-trader">github</a> for API documentation </p>
+        </div>
+</div>
+
+<!-- BTC logo -->
+<center>
+<div class="container">
+<img src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" class="img-circle" alt="btc-logo">
+</div>
+</center>
+    </body>
+
+
+
+
+
+
+</html>
